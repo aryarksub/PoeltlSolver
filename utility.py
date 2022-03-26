@@ -1,0 +1,51 @@
+# utility.py
+# 3-25-2022
+
+
+# FIX: map div name to list of teams in global dict
+
+# Given a team's abbreviation, return its division.
+def getDivision(team: str) -> str:
+    # POTENTIAL FIXES: Brooklyn Nets (BRK -> BKN), Charlotte Hornets (CHO -> CHA)
+    if team in ["BOS", "BRK", "NYK", "PHI", "TOR"]:
+        return "Atl."
+    if team in ["CHI", "CLE", "DET", "IND", "MIL"]:
+        return "Cen."
+    if team in ["ATL", "CHO", "MIA", "ORL", "WAS"]:
+        return "SE"
+    if team in ["DEN", "MIN", "OKC", "POR", "UTA"]:
+        return "NW"
+    if team in ["GSW", "LAC", "LAL", "PHO", "SAC"]:
+        return "Pac."
+    if team in ["DAL", "HOU", "MEM", "NOP", "SAS"]:
+        return "SW"
+    raise ValueError("Invalid team")
+
+# Given a division, return the respective conference.
+def getConference(div: str) -> str:
+    if div in ["Atl.", "Cen.", "SE"]:
+        return "East"
+    if div in ["NW", "Pac.", "SW"]:
+        return "West"
+    raise ValueError("Invalid division")
+
+# Return s in all lowercase and with only letters.
+def cleanString(s: str) -> str:
+    res = ''
+    for x in s.lower():
+        if ord('a') <= ord(x) <= ord('z'):
+            res += x
+    return res
+
+# Return -1 if x < y, 0 if x == y, 1 if x > y.
+# x and y are strings that represent heights
+#   Format: feet'inches"
+def compareHeights(x: str, y: str) -> int:
+    tokens1 = [int(a.replace('\"', '')) for a in x.split('\'')]
+    tokens2 = [int(a.replace('\"', '')) for a in y.split('\'')]
+    assert len(tokens1) == len(tokens2) == 2
+    if tokens1 < tokens2:
+        return -1
+    elif tokens1 > tokens2:
+        return 1
+    return 0
