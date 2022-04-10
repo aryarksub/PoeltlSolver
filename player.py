@@ -47,8 +47,8 @@ class Player:
             return False
 
         # Height check
-        if (compareHeights(self.height, constraints.minHt) == -1 or
-            compareHeights(self.height, constraints.maxHt) == 1):
+        if (util.compareHeights(self.height, constraints.minHt) == -1 or
+            util.compareHeights(self.height, constraints.maxHt) == 1):
             return False
 
         # Age check

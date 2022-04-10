@@ -2,31 +2,46 @@
 # 3-25-2022
 
 
-# FIX: map div name to list of teams in global dict
+# FIX: map div name to list of teams in global dict (FIXED)
+# POTENTIAL FIXES: Brooklyn Nets (BRK -> BKN), Charlotte Hornets (CHO -> CHA)
+confToDivs = {"East" : {"Atl.", "Cen.", "SE"}, 
+                "West" : {"NW", "Pac.", "SW"}}
+divToTeams = {"Atl." : {"BOS", "BRK", "NYK", "PHI", "TOR"}, 
+                "Cen." : {"CHI", "CLE", "DET", "IND", "MIL"},
+                "SE" : {"ATL", "CHO", "MIA", "ORL", "WAS"},
+                "NW" : {"DEN", "MIN", "OKC", "POR", "UTA"},
+                "Pac." : {"GSW", "LAC", "LAL", "PHO", "SAC"},
+                "SW" : {"DAL", "HOU", "MEM", "NOP", "SAS"}}
 
 # Given a team's abbreviation, return its division.
 def getDivision(team: str) -> str:
-    # POTENTIAL FIXES: Brooklyn Nets (BRK -> BKN), Charlotte Hornets (CHO -> CHA)
-    if team in ["BOS", "BRK", "NYK", "PHI", "TOR"]:
-        return "Atl."
-    if team in ["CHI", "CLE", "DET", "IND", "MIL"]:
-        return "Cen."
-    if team in ["ATL", "CHO", "MIA", "ORL", "WAS"]:
-        return "SE"
-    if team in ["DEN", "MIN", "OKC", "POR", "UTA"]:
-        return "NW"
-    if team in ["GSW", "LAC", "LAL", "PHO", "SAC"]:
-        return "Pac."
-    if team in ["DAL", "HOU", "MEM", "NOP", "SAS"]:
-        return "SW"
+    for div in divToTeams:
+        if team in divToTeams[div]:
+            return div
+
+    # if team in ["BOS", "BRK", "NYK", "PHI", "TOR"]:
+    #     return "Atl."
+    # if team in ["CHI", "CLE", "DET", "IND", "MIL"]:
+    #     return "Cen."
+    # if team in ["ATL", "CHO", "MIA", "ORL", "WAS"]:
+    #     return "SE"
+    # if team in ["DEN", "MIN", "OKC", "POR", "UTA"]:
+    #     return "NW"
+    # if team in ["GSW", "LAC", "LAL", "PHO", "SAC"]:
+    #     return "Pac."
+    # if team in ["DAL", "HOU", "MEM", "NOP", "SAS"]:
+    #     return "SW"
     raise ValueError("Invalid team")
 
 # Given a division, return the respective conference.
 def getConference(div: str) -> str:
-    if div in ["Atl.", "Cen.", "SE"]:
-        return "East"
-    if div in ["NW", "Pac.", "SW"]:
-        return "West"
+    for conf in confToDivs:
+        if div in confToDivs[conf]:
+            return conf
+    # if div in ["Atl.", "Cen.", "SE"]:
+    #     return "East"
+    # if div in ["NW", "Pac.", "SW"]:
+    #     return "West"
     raise ValueError("Invalid division")
 
 # Return s in all lowercase and with only letters.
