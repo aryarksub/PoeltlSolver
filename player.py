@@ -20,6 +20,14 @@ class Player:
     def get_slug(self):
         return self.slug
 
+    # Generic getter and setter functions. Use any of the following attributes:
+    #   name, team, division, conf, positions, height, age, number, slug
+    def get_attribute(self, attr):
+        return getattr(self, attr)
+    
+    def set_attribute(self, attr, value):
+        setattr(self, attr, value)
+
     # Return True if the player matches the given constraints.
     # Otherwise, return False.
     def match(self, constraints: ConstraintSet):
