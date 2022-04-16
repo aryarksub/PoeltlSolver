@@ -2,8 +2,11 @@
 # 4-10-2022
 
 import csv
+
+from pandas import json_normalize
 import utility as util
 from player import Player
+import json
 
 '''
 Create player dictionary that maps cleaned player names to Player objects
@@ -35,13 +38,23 @@ with the necessary missing attributes (position, height, and number) using
 data rows from the NBA.com data file.
 '''
 def fillPlayerDict(pDict):
-    pass
+    with open("nba_players.txt") as jsonFile:
+        jsonObject = json.load(jsonFile)
+    resultSets = jsonObject["resultSets"]
+    players = resultSets[0]["rowSet"]
+    for playerRow in players:
+        lname, fname, num, pos, ht, to_year = playerRow[1], playerRow[2], playerRow[10], playerRow[11], playerRow[12], playerRow[-1]
+        slug = util.cleanString(fname + lname)
+        # only consider players who have played through the current season and
+        #   also appear in the player dict created using bball reference data
+        if to_year == "2021" and slug in pDict:
+            pass # add attributes to player : pDict[slug]
+
 
 
 def run():
     playerDict = createPlayerDict()
-    for x in playerDict:
-        print(x, playerDict[x])
+    fillPlayerDict(playerDict)
 
 
 
