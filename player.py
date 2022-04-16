@@ -6,7 +6,7 @@ import utility as util
 
 class Player:
     def __init__(self, name, team = "", pos = "", height = "",
-                 age = "", number = ""):
+                 age = "", number = "", slug = ""):
         self.name = name
         self.team = team
         self.division = util.getDivision(team) if team else ""
@@ -15,7 +15,7 @@ class Player:
         self.height = height
         self.age = age
         self.number = number
-        self.slug = util.cleanString(name)
+        self.slug = slug
 
     def get_slug(self):
         return self.slug
@@ -63,4 +63,4 @@ class Player:
         
 
     def __str__(self):
-        return self.name + ("(" + self.team + ")" if self.team else "")
+        return self.name + (" (" + self.team + ")" if self.team else "")
