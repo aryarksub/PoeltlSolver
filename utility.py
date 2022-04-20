@@ -3,7 +3,6 @@
 
 import unidecode
 
-# FIX: map div name to list of teams in global dict (FIXED)
 # POTENTIAL FIXES: Brooklyn Nets (BRK -> BKN), Charlotte Hornets (CHO -> CHA)
 confToDivs = {"East" : {"Atl.", "Cen.", "SE"}, 
                 "West" : {"NW", "Pac.", "SW"}}
@@ -19,19 +18,6 @@ def getDivision(team: str) -> str:
     for div in divToTeams:
         if team in divToTeams[div]:
             return div
-
-    # if team in ["BOS", "BRK", "NYK", "PHI", "TOR"]:
-    #     return "Atl."
-    # if team in ["CHI", "CLE", "DET", "IND", "MIL"]:
-    #     return "Cen."
-    # if team in ["ATL", "CHO", "MIA", "ORL", "WAS"]:
-    #     return "SE"
-    # if team in ["DEN", "MIN", "OKC", "POR", "UTA"]:
-    #     return "NW"
-    # if team in ["GSW", "LAC", "LAL", "PHO", "SAC"]:
-    #     return "Pac."
-    # if team in ["DAL", "HOU", "MEM", "NOP", "SAS"]:
-    #     return "SW"
     raise ValueError("Invalid team")
 
 # Given a division, return the respective conference.
@@ -39,10 +25,6 @@ def getConference(div: str) -> str:
     for conf in confToDivs:
         if div in confToDivs[conf]:
             return conf
-    # if div in ["Atl.", "Cen.", "SE"]:
-    #     return "East"
-    # if div in ["NW", "Pac.", "SW"]:
-    #     return "West"
     raise ValueError("Invalid division")
 
 # Return s in all lowercase and with only letters.
