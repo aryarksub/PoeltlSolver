@@ -45,26 +45,34 @@ def fillPlayerDict(pDict):
     for playerRow in players:
         lname, fname, num, pos, ht, to_year = playerRow[1], playerRow[2], playerRow[10], playerRow[11], playerRow[12], playerRow[-1]
         slug = util.cleanString(fname + lname)
+        # Manual fix: Player name is Tre Scott in Basketball Reference but
+        #   Trevon Scott in NBA.com
+        if slug == 'trevonscott':
+            slug = 'trescott'
         # only consider players who have played through the past season and
         #   also appear in the player dict created using bball reference data
         if (to_year == "2020" or to_year == "2021") and slug in pDict:
             pDict[slug].set_attribute("positions", pos.split('-'))
             pDict[slug].set_attribute("height", ht)
-            pDict[slug].set_attribute("number", num)
-        elif (to_year == "2020" or to_year == "2021") and slug not in pDict:
-            pass#print(slug)
-    for p in pDict:
-        for a in ['name', 'team', 'division', 'conf', 'positions', 'height', 'age', 'number', 'slug']:
-            if pDict[p].get_attribute(a) == "":
-                print(p, pDict[p], a)
+            pDict[slug].set_attribute("number", num)    
+    return pDict
     
+'''
+Fill the player dictionary manually for some players that are in the
+league, but are not registered in NBA.com.
+'''
+def manualEntry(pDict):
+    pDict['melvinfrazier'] = Player('Melvin Frazier', "OKC", "G-F", "6-5", "25", "35", "melvinfrazier")
+    pDict['zaviersimpson'] = Player('Zavier Simpson', "OKC", "G", "6-0", "25", "9", "zaviersimpson")
+    pDict['gabeyork'] = Player('Gabe York', "IND", "G", "6-3", "28", "8", "gabeyork")
 
+    return pDict
 
 
 def run():
     playerDict = createPlayerDict()
-    fillPlayerDict(playerDict)
-
+    playerDict = fillPlayerDict(playerDict)
+    playerDict = manualEntry(playerDict)
 
 
 if __name__ == '__main__':
