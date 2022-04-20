@@ -48,8 +48,12 @@ def getConference(div: str) -> str:
 # Return s in all lowercase and with only letters.
 def cleanString(s: str) -> str:
     no_accents = unidecode.unidecode(s)
+    no_suffix = no_accents
+    suffixes = ['Jr.', 'Sr.', 'III', 'II']
+    for suf in suffixes:
+        no_suffix = no_suffix.replace(suf, '')
     res = ''
-    for x in no_accents.lower():
+    for x in no_suffix.lower():
         if ord('a') <= ord(x) <= ord('z'):
             res += x
     return res

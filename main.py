@@ -28,7 +28,6 @@ def createPlayerDict():
                 continue
             playerName = playerAndSlug.split('\\')[0]
             cleanString = util.cleanString(playerName)
-            print(cleanString)
             player = Player(playerName, team=team, age=age, slug=cleanString)
             playerDict[cleanString] = player
     return playerDict
@@ -46,14 +45,14 @@ def fillPlayerDict(pDict):
     for playerRow in players:
         lname, fname, num, pos, ht, to_year = playerRow[1], playerRow[2], playerRow[10], playerRow[11], playerRow[12], playerRow[-1]
         slug = util.cleanString(fname + lname)
-        # only consider players who have played through the current season and
+        # only consider players who have played through the past season and
         #   also appear in the player dict created using bball reference data
-        if to_year == "2021" and slug in pDict:
+        if (to_year == "2020" or to_year == "2021") and slug in pDict:
             pDict[slug].set_attribute("positions", pos.split('-'))
             pDict[slug].set_attribute("height", ht)
             pDict[slug].set_attribute("number", num)
-        elif to_year == "2021" and slug not in pDict:
-            print(slug)
+        elif (to_year == "2020" or to_year == "2021") and slug not in pDict:
+            pass#print(slug)
     for p in pDict:
         for a in ['name', 'team', 'division', 'conf', 'positions', 'height', 'age', 'number', 'slug']:
             if pDict[p].get_attribute(a) == "":
