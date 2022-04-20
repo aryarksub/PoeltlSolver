@@ -48,7 +48,16 @@ def fillPlayerDict(pDict):
         # only consider players who have played through the current season and
         #   also appear in the player dict created using bball reference data
         if to_year == "2021" and slug in pDict:
-            pass # add attributes to player : pDict[slug]
+            pDict[slug].set_attribute("positions", pos.split('-'))
+            pDict[slug].set_attribute("height", ht)
+            pDict[slug].set_attribute("number", num)
+        elif to_year == "2021" and slug not in pDict:
+            print(slug)
+    for p in pDict:
+        for a in ['name', 'team', 'division', 'conf', 'positions', 'height', 'age', 'number', 'slug']:
+            if pDict[p].get_attribute(a) == "":
+                print(pDict[p], a)
+    
 
 
 

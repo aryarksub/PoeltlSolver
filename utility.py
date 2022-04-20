@@ -1,6 +1,7 @@
 # utility.py
 # 3-25-2022
 
+import unicodedata
 
 # FIX: map div name to list of teams in global dict (FIXED)
 # POTENTIAL FIXES: Brooklyn Nets (BRK -> BKN), Charlotte Hornets (CHO -> CHA)
@@ -50,7 +51,12 @@ def cleanString(s: str) -> str:
     for x in s.lower():
         if ord('a') <= ord(x) <= ord('z'):
             res += x
-    return res
+    # Normalize unicode string
+    nfkd_form = unicodedata.normalize('NFKD', res)
+    # Encode into ASCII (remove accents)
+    encoded = nfkd_form.encode('ascii', 'ignore')
+    # Return string without accents
+    return str(encoded.decode('utf-8'))
 
 # Return -1 if x < y, 0 if x == y, 1 if x > y.
 # x and y are strings that represent heights
