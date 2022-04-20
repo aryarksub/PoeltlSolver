@@ -28,6 +28,7 @@ def createPlayerDict():
                 continue
             playerName = playerAndSlug.split('\\')[0]
             cleanString = util.cleanString(playerName)
+            print(cleanString)
             player = Player(playerName, team=team, age=age, slug=cleanString)
             playerDict[cleanString] = player
     return playerDict
@@ -56,7 +57,7 @@ def fillPlayerDict(pDict):
     for p in pDict:
         for a in ['name', 'team', 'division', 'conf', 'positions', 'height', 'age', 'number', 'slug']:
             if pDict[p].get_attribute(a) == "":
-                print(pDict[p], a)
+                print(p, pDict[p], a)
     
 
 
